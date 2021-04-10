@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preload" href="style.css" as="style">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <canvas id="canvas"></canvas>
+    <canvas width="720" height="1280" id="canvas"></canvas>
 
     <!-- Game scripts & dependencies -->
+    <script src="game/scene/scene.js"></script>
+    <script src="game/scene/impl/titlescreen.js"></script>
     <script src="game/game.js"></script>
     <script src="game/state.js"></script>
 

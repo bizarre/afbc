@@ -2,9 +2,11 @@ class Game {
 
   constructor(handle, { fps, speed = 1}) {
     this.handle = handle
+    this.ctx = handle.getContext('2d')
     this.fps = fps
     this.speed = speed
     this.state = GameState.TITLE_SCREEN
+    this.scene = new TitleScreenScene('title_screen', handle)
   }
 
   async start () {
@@ -15,7 +17,6 @@ class Game {
   }
 
   async _renderLoop () {
-    console.log('hi')
     return await new Promise(_ => {
       setInterval(async () => {
         await this._render()
@@ -24,7 +25,8 @@ class Game {
   }
 
   async _render() {
-
+    this.ctx.clearRect(0, 0, this.handle.width, this.handle.height)
+    await this.scene?.render()
   }
 
   async _logicLoop () {
@@ -44,7 +46,7 @@ class Game {
   }
 
   async _tick () {
-    console.log(this.state)
+    await this.scene?.tick()
   }
 
 }
