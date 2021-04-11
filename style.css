@@ -19,9 +19,23 @@ canvas {
   outline: 1px solid white;
   width: 360px;
   height: 640px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+body > div {
+  display: flex;
+}
+
+div > div {
+  font-family: monospace;
+  color: white;
+  padding: 2em;
+  max-width: 400px;
 }
 
 @font-face {
   font-family: 'FlappyBirdRegular';
-  src: url('assets/FlappyBirdRegular.ttf');
+  src: url('assets/fonts/FlappyBirdRegular.ttf');
 }

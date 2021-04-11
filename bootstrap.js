@@ -13,6 +13,19 @@
   // init game with handle
   const game = new Game(handle, options)
 
+  // add input handler forward
+  document.body.addEventListener('keydown', async (event) => { await game.processInput(event.key.toLowerCase()) })
+
+
+  // Cat & Faith both wanted to be first 
+  // so now we have this block of code lmao
+  const friends = ['Cat', 'Faith', 'Jet']
+  document.getElementById('friends').textContent = `
+  ${friends.splice(Math.floor(Math.random() * friends.length), 1)}, 
+  ${friends.splice(Math.floor(Math.random() * friends.length), 1)} & 
+  ${friends.splice(Math.floor(Math.random() * friends.length), 1)}.
+`
+
   // start game
   await game.start()
 })()

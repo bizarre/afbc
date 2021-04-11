@@ -6,7 +6,7 @@ class Game {
     this.fps = fps
     this.speed = speed
     this.state = GameState.TITLE_SCREEN
-    this.scene = new TitleScreenScene('title_screen', handle)
+    this.scene = new TitleScreenScene('title_screen', this, handle)
   }
 
   async start () {
@@ -38,15 +38,17 @@ class Game {
           return;
         }
 
-        if (this.state == GameState.RUNNING) {
-          await this._tick()
-        }
+        await this._tick()
       }, 1000/(300*this.speed))
     })
   }
 
   async _tick () {
     await this.scene?.tick()
+  }
+
+  async processInput(key) {
+    await this.scene?.processInput(key)
   }
 
 }
