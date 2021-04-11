@@ -11,17 +11,27 @@ class TitleScene extends Scene {
     this.backdrop.src = './assets/images/backdrop.png'
 
     this.flashCounter = 0
+
+    this.scroll = true
+
+    TitleScene.prototype.floor = this.floor
   }
 
-  async _tickFloor () {
-    this.floorOffset += 0.5
-    if (this.floorOffset > this.floor.width) {
-      this.floorOffset = 0
+  setScroll (scroll) {
+    this.scroll = scroll
+  }
+
+  _tickFloor () {
+    if (this.scroll) {
+      this.floorOffset += 0.5
+      if (this.floorOffset > this.floor.width) {
+        this.floorOffset = 0
+      }
     }
   }
 
-  async tick () {
-    await this._tickFloor()
+  tick () {
+    this._tickFloor()
 
     this.flashCounter += 1
     if (this.flashCounter > 300) {
@@ -29,7 +39,7 @@ class TitleScene extends Scene {
     }
   }
 
-  async _text(text, fontSize = 200, y = this.handle.height / 5, opacity = 1) {
+  _text(text, fontSize = 200, y = this.handle.height / 5, opacity = 1) {
     this.ctx.font = `${fontSize}px FlappyBirdRegular`
     const measurement = this.ctx.measureText(text)
     this.ctx.strokeStyle = `rgba(0, 0, 0, ${opacity})`
@@ -39,7 +49,7 @@ class TitleScene extends Scene {
     this.ctx.fillText(text, this.handle.width / 2 - measurement.width / 2, y)
   }
 
-  async _renderTitleText () {
+  _renderTitleText () {
     // title text
     this._text('AFBC')
     this._text('Another Flappy Bird Clone', 66, this.handle.height / 5 + 66, 0.5)
@@ -48,7 +58,7 @@ class TitleScene extends Scene {
     }
   }
 
-  async render () {
+  render () {
     // background
     this.ctx.fillStyle = "#12194f";
     this.ctx.fillRect(0, 0, canvas.width, canvas.height);

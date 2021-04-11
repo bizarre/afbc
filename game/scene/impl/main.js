@@ -3,35 +3,36 @@ class MainScene extends TitleScene {
   constructor(name, game, handle) {
     super(name, game, handle)
 
-    this.bird = new Image()
-    this.bird.src = './assets/images/bird.png'
-    this.shiftCounter = 0;
-    this.shift = 0
+    this.bird = new Bird(game, handle, super.floor)
   }
 
-  async tick () {
+  tick () {
     super.tick()
+    this.bird.tick()
 
-    this.shift += 6
-    if (this.shift >= this.bird.width) {
-      this.shift = 0
+    if (this.bird.dead) {
+      super.setScroll(false)
     }
   }
 
-  async render () {
+  render () {
     super.render()
 
     if (this.game.state == GameState.TITLE_SCREEN) {
-      this.ctx.drawImage(this.bird, 160*Math.floor((this.shift/160)), 0, 160, 160, this.handle.width/10, this.handle.height/2.8, 160, 160)
-    
       super._renderTitleText()
     }
 
+    this.bird.render()
   }
 
-  async processInput(key) {
+  processInput(key) {
     if (key == ' ') {
-      this.game.state = GameState.RUNNING
+      if (this.game.state == GameState.TITLE_SCREEN) {
+        this.game.state = GameState.RUNNING
+      }
+
+      this.bird.unfreeze()
+      this.bird.jump()
     }
   }
 

@@ -7,15 +7,15 @@ class Scene {
     this.ctx = handle.getContext('2d')
   }
 
-  async tick () {
+  tick () {
 
   }
 
-  async render () {
+  render () {
 
   }
 
-  async processInput(key) {
+  processInput(key) {
 
   }
 

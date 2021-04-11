@@ -20,22 +20,22 @@ class Game {
   async _renderLoop () {
     return await new Promise(_ => {
       setInterval(async () => {
-        await this._render()
+        this._render()
       }, 1000/Math.min(this.fps, 300))
     })
   }
 
-  async _render() {
+  _render () {
     this.ctx.clearRect(0, 0, this.handle.width, this.handle.height)
 
-    await this.scene?.render()
+    this.scene?.render()
 
     if (this.debug) {
-      await this._renderDebug()
+      this._renderDebug()
     }
   }
 
-  async _renderDebug () {
+  _renderDebug () {
     this.ctx.font = `30px monospace`
     this.ctx.fillStyle = `white`
     this.ctx.fillText(`STATE: ${this.state.toString()}`, 0, 25)
@@ -50,17 +50,17 @@ class Game {
           return;
         }
 
-        await this._tick()
+        this._tick()
       }, 1000/(300*this.speed))
     })
   }
 
-  async _tick () {
-    await this.scene?.tick()
+  _tick () {
+    this.scene?.tick()
   }
 
-  async processInput(key) {
-    await this.scene?.processInput(key)
+  processInput (key) {
+    this.scene?.processInput(key)
   }
 
 }
