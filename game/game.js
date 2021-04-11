@@ -1,12 +1,13 @@
 class Game {
 
-  constructor(handle, { fps, speed = 1}) {
+  constructor(handle, { fps, speed = 1, debug = false}) {
     this.handle = handle
     this.ctx = handle.getContext('2d')
     this.fps = fps
     this.speed = speed
+    this.debug = debug
     this.state = GameState.TITLE_SCREEN
-    this.scene = new TitleScreenScene('title_screen', this, handle)
+    this.scene = new MainScene('scene', this, handle)
   }
 
   async start () {
@@ -26,7 +27,18 @@ class Game {
 
   async _render() {
     this.ctx.clearRect(0, 0, this.handle.width, this.handle.height)
+
     await this.scene?.render()
+
+    if (this.debug) {
+      await this._renderDebug()
+    }
+  }
+
+  async _renderDebug () {
+    this.ctx.font = `30px monospace`
+    this.ctx.fillStyle = `white`
+    this.ctx.fillText(`STATE: ${this.state.toString()}`, 0, 25)
   }
 
   async _logicLoop () {

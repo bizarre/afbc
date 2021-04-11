@@ -1,4 +1,4 @@
-class TitleScreenScene extends Scene {
+class TitleScene extends Scene {
 
   constructor(name, game, handle) {
     super(name, game, handle)
@@ -13,11 +13,15 @@ class TitleScreenScene extends Scene {
     this.flashCounter = 0
   }
 
-  async tick () {
+  async _tickFloor () {
     this.floorOffset += 0.5
     if (this.floorOffset > this.floor.width) {
       this.floorOffset = 0
     }
+  }
+
+  async tick () {
+    await this._tickFloor()
 
     this.flashCounter += 1
     if (this.flashCounter > 300) {
@@ -35,6 +39,15 @@ class TitleScreenScene extends Scene {
     this.ctx.fillText(text, this.handle.width / 2 - measurement.width / 2, y)
   }
 
+  async _renderTitleText () {
+    // title text
+    this._text('AFBC')
+    this._text('Another Flappy Bird Clone', 66, this.handle.height / 5 + 66, 0.5)
+    if (this.flashCounter < 150) {
+      this._text('PRESS SPACE TO START', 75, this.handle.height / 2)
+    }
+  }
+
   async render () {
     // background
     this.ctx.fillStyle = "#12194f";
@@ -46,19 +59,6 @@ class TitleScreenScene extends Scene {
     // moving terrain
     this.ctx.drawImage(this.floor, -this.floorOffset, this.handle.height-this.floor.height)
     this.ctx.drawImage(this.floor, this.handle.width - this.floorOffset - 1, this.handle.height-this.floor.height)
-
-    // title text
-    this._text('AFBC')
-    this._text('Another Flappy Bird Clone', 66, this.handle.height / 5 + 66, 0.5)
-    if (this.flashCounter < 150) {
-      this._text('PRESS SPACE TO CONTINUE', 75, this.handle.height / 2)
-    }
-  }
-
-  async processInput(key) {
-    if (key == 'c') {
-      alert('credits')
-    }
   }
 
 }

@@ -7,7 +7,8 @@
 
   // game options
   const options = {
-    fps: 60
+    fps: 60,
+    debug: true
   }
 
   // init game with handle
@@ -23,7 +24,7 @@
   document.getElementById('friends').textContent = `
   ${friends.splice(Math.floor(Math.random() * friends.length), 1)}, 
   ${friends.splice(Math.floor(Math.random() * friends.length), 1)} & 
-  ${friends.splice(Math.floor(Math.random() * friends.length), 1)}.
+  ${friends[0]}.
 `
 
   // start game
