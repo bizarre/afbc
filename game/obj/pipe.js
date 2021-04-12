@@ -12,6 +12,7 @@ class Pipe {
     this.pipe.src = './assets/images/pipe.png'
     this.pipeEnd = new Image()
     this.pipeEnd.src = './assets/images/pipeEnd.png'
+    this.tracked = false
   }
 
   render () {

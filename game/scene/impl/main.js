@@ -5,6 +5,7 @@ class MainScene extends TitleScene {
 
     this.bird = new Bird(game, handle, super.floor)
     this.pipes = []
+    this.score = 0
   }
 
   tick () {
@@ -14,8 +15,6 @@ class MainScene extends TitleScene {
     if (this.bird.dead) {
       super.setScroll(false)
     }
-
-    console.log(this.pipes.length)
 
     if (this.game.state == GameState.RUNNING) {
       if (!this.bird.dead && !this.bird.frozen) {
@@ -28,7 +27,14 @@ class MainScene extends TitleScene {
           }
         }
 
-        this.pipes.forEach(pipe => pipe.tick())
+        this.pipes = this.pipes.filter(pipe => pipe.x+pipe.pipe.width > 0)
+        this.pipes.forEach(pipe => { 
+          pipe.tick() 
+          if (pipe.x < this.bird.x && !pipe.tracked) {
+            pipe.tracked = true
+            this.score += 1
+          }
+        })
       }
     }
   }
@@ -47,13 +53,27 @@ class MainScene extends TitleScene {
     if (this.game.state == GameState.TITLE_SCREEN) {
       super._renderTitleText()
     }
-
+    
     this.bird.render()
     this.pipes.forEach(pipe => pipe.render())
+
+    if (this.game.state == GameState.RUNNING) {
+      super._text(this.score, 125)
+    }
+
+    if (this.game.debug) {
+      this.ctx.font = `30px monospace`
+      this.ctx.fillStyle = `yellow`
+      this.ctx.fillText(`PIPES IN MEMORY: ${this.pipes.length}`, 0, 60)
+      this.ctx.fillText(`BIRD ROTATION: ${this.bird.rotation.toFixed(2)}`, 0, 90)
+      this.ctx.fillText(`BIRD Y: ${this.bird.y.toFixed(2)*-1}`, 0, 120)
+      this.ctx.fillText(`BIRD VELOCITY: ${this.bird.dY.toFixed(2)*-1}`, 0, 150)
+      this.ctx.fillText(`BIRD ALIVE: ${!this.bird.dead}`, 0, 180)
+    }
   }
 
   processInput(key) {
-    if (key == ' ') {
+    if (key === ' ') {
       if (this.game.state == GameState.TITLE_SCREEN) {
         this.game.state = GameState.RUNNING
       }

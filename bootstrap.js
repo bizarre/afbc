@@ -7,15 +7,14 @@
 
   // game options
   const options = {
-    fps: 60,
-    debug: true
+    fps: 60
   }
 
   // init game with handle
   const game = new Game(handle, options)
 
   // add input handler forward
-  document.body.addEventListener('keydown', async (event) => { await game.processInput(event.key.toLowerCase()) })
+  document.body.addEventListener('keydown', (event) => { event.preventDefault(); game.processInput(event.key.toLowerCase()) })
 
 
   // Cat & Faith both wanted to be first 

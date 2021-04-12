@@ -60,6 +60,11 @@ class Game {
   }
 
   processInput (key) {
+    if (key === 'tab') {
+      this.debug = !this.debug
+      return
+    }
+    
     this.scene?.processInput(key)
   }
 

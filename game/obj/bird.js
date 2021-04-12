@@ -14,8 +14,9 @@ class Bird {
     this.dead = false
     this.rotation = 0
 
-    this.dY = 1;
-    this.y = this.handle.height/2.8;
+    this.dY = 1
+    this.y = this.handle.height/2.8
+    this.x = this.handle.width/6
   }
 
   tick () {
@@ -49,7 +50,7 @@ class Bird {
   }
 
   render () {
-    this.ctx.setTransform(1, 0, 0, 1, this.handle.width/6, this.y);
+    this.ctx.setTransform(1, 0, 0, 1, this.x, this.y);
     this.ctx.rotate(this.rotation);
     this.ctx.drawImage(this.bird, 96*Math.floor((this.shift/96)), 0, 96, 96, -96/2, -96/2, 96, 96)
     this.ctx.setTransform(1, 0, 0, 1, 0, 0)
