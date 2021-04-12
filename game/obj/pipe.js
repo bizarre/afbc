@@ -40,7 +40,7 @@ class Pipe {
   }
 
   tick () {
-    this.x -= Math.max(this.parent.score/10, 1) * 0.5
+    this.x -= Math.max(this.parent.score/10, 1)
   }
 
 

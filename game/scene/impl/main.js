@@ -14,7 +14,7 @@ class MainScene extends TitleScene {
   tick () {
     const bird = this.bird
 
-    super.setScrollSpeed(Math.max(this.score/10, 1) * 0.5)
+    super.setScrollSpeed(Math.max(this.score/10, 1))
 
     super.tick()
     bird.tick()

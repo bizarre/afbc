@@ -34,7 +34,7 @@ class Bird {
     if (!this.frozen && !this.atBottom()) {
       if (!this.atBottom()) {
         if (this.dY < 0) {
-          this.dY *= 0.98
+          this.dY *= 0.97
           if (Math.abs(this.dY) < 0.15) {
             this.dY = 0.25
           }
