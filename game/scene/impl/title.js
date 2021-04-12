@@ -13,6 +13,7 @@ class TitleScene extends Scene {
     this.flashCounter = 0
 
     this.scroll = true
+    this.scrollSpeed = 0.5
 
     TitleScene.prototype.floor = this.floor
   }
@@ -21,9 +22,17 @@ class TitleScene extends Scene {
     this.scroll = scroll
   }
 
+  setScrollSpeed (scrollSpeed) {
+    this.scrollSpeed = scrollSpeed
+  }
+
+  getScrollSpeed () {
+    return this.scrollSpeed
+  }
+
   _tickFloor () {
     if (this.scroll) {
-      this.floorOffset += 0.5
+      this.floorOffset += this.scrollSpeed
       if (this.floorOffset > this.floor.width) {
         this.floorOffset = 0
       }
@@ -43,7 +52,7 @@ class TitleScene extends Scene {
     this.ctx.font = `${fontSize}px FlappyBirdRegular`
     const measurement = this.ctx.measureText(text)
     this.ctx.strokeStyle = `rgba(0, 0, 0, ${opacity})`
-    this.ctx.lineWidth = fontSize/10;
+    this.ctx.lineWidth = fontSize/10
     this.ctx.strokeText(text, this.handle.width / 2 - measurement.width / 2, y)
     this.ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`
     this.ctx.fillText(text, this.handle.width / 2 - measurement.width / 2, y)
@@ -60,8 +69,8 @@ class TitleScene extends Scene {
 
   render () {
     // background
-    this.ctx.fillStyle = "#12194f";
-    this.ctx.fillRect(0, 0, canvas.width, canvas.height);
+    this.ctx.fillStyle = "#12194f"
+    this.ctx.fillRect(0, 0, canvas.width, canvas.height)
 
     // backdrop
     this.ctx.drawImage(this.backdrop, 0, this.handle.height-this.floor.height-this.backdrop.height)

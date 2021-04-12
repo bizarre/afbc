@@ -47,7 +47,7 @@ class Game {
         if (this.state === GameState.FINISHED) {
           resolve(null)
           clearInterval(loop)
-          return;
+          return
         }
 
         this._tick()
@@ -64,7 +64,7 @@ class Game {
       this.debug = !this.debug
       return
     }
-    
+
     this.scene?.processInput(key)
   }
 

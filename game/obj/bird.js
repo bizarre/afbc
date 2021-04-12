@@ -27,37 +27,42 @@ class Bird {
       }
     }
 
-    if (!this.frozen && !this.dead) {
-      if (this.y >= this.handle.height - this.floor.height) {
-        this.dead = true
-        return
-      }
+    if (this.atBottom() && !this.dead) {
+      this.dead = true
+    }
 
-      if (this.dY < 0) {
-        this.dY *= 0.98;
-        if (Math.abs(this.dY) < 0.15) {
-          this.dY = 0.25
+    if (!this.frozen && !this.atBottom()) {
+      if (!this.atBottom()) {
+        if (this.dY < 0) {
+          this.dY *= 0.98
+          if (Math.abs(this.dY) < 0.15) {
+            this.dY = 0.25
+          }
+
+          this.y = this.y + this.dY
+          this.rotation = Math.max(this.rotation - 0.05, -0.3)
+        } else {
+          this.dY *= 1.02
+          this.y = this.y + Math.min(this.dY, 10)
+          this.rotation = Math.min(this.rotation + 0.0125, 1.5)
         }
-
-        this.y = this.y + this.dY
-        this.rotation = Math.max(this.rotation - 0.05, -0.3)
-      } else {
-        this.dY *= 1.02;
-        this.y = this.y + Math.min(this.dY, 10)
-        this.rotation = Math.min(this.rotation + 0.0125, 1.5)
       }
     }
   }
 
+  atBottom() {
+    return this.y >= this.handle.height - this.floor.height
+  }
+
   render () {
-    this.ctx.setTransform(1, 0, 0, 1, this.x, this.y);
-    this.ctx.rotate(this.rotation);
+    this.ctx.setTransform(1, 0, 0, 1, this.x, this.y)
+    this.ctx.rotate(this.atBottom() ? 1.5 : this.rotation)
     this.ctx.drawImage(this.bird, 96*Math.floor((this.shift/96)), 0, 96, 96, -96/2, -96/2, 96, 96)
     this.ctx.setTransform(1, 0, 0, 1, 0, 0)
   }
 
   jump () {
-    this.dY = -3;
+    this.dY = -3
   }
 
   unfreeze () {

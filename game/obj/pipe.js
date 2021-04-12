@@ -1,11 +1,11 @@
 class Pipe {
 
-  constructor (game, handle, height, floor) {
+  constructor (game, handle, height, floor, parent) {
     this.game = game
     this.handle = handle
     this.ctx = handle.getContext('2d')
     this.height = height
-    this.floor = floor;
+    this.floor = floor
     this.frozen = false
     this.x = handle.width
     this.pipe = new Image()
@@ -13,11 +13,12 @@ class Pipe {
     this.pipeEnd = new Image()
     this.pipeEnd.src = './assets/images/pipeEnd.png'
     this.tracked = false
+    this.parent = parent
   }
 
   render () {
     if (this.pipe.height === 0) {
-      return;
+      return
     }
 
     // render top
@@ -39,7 +40,7 @@ class Pipe {
   }
 
   tick () {
-    this.x -= 0.5
+    this.x -= Math.max(this.parent.score/10, 1) * 0.5
   }
 
 
