@@ -47,5 +47,7 @@ div > div {
 
   body {
     overflow: hidden;
+    align-items: stretch;
+    margin-top: 1em;
   }
 }
