@@ -31,7 +31,6 @@ class Pipe {
 
     // render bottom
     for (var i = (this.handle.height - this.floor.height)/this.pipe.height; i > this.height/this.pipe.height; i--) {
-      console.log('hi2')
       this.ctx.drawImage(this.pipe, this.x, i * this.pipe.height)
     }
 
