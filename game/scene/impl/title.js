@@ -64,6 +64,7 @@ class TitleScene extends Scene {
     this._text('Another Flappy Bird Clone', 66, this.handle.height / 5 + 66, 0.5)
     if (this.flashCounter < 150) {
       this._text('PRESS SPACE TO START', 75, this.handle.height / 2)
+      this._text('OR TAP PHONE', 50, this.handle.height / 2 + 50)
     }
   }
 

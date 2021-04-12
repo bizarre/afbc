@@ -15,6 +15,7 @@
 
   // add input handler forward
   document.body.addEventListener('keydown', (event) => { event.preventDefault(); game.processInput(event.key.toLowerCase()) })
+  document.body.addEventListener('touchstart', (_) => { event.preventDefault(); game.processInput(' ') })
 
 
   // Cat & Faith both wanted to be first 
